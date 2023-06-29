@@ -1,0 +1,52 @@
+{% extends 'mngmnt/starter.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Stock Details{% endblock %} 
+
+{% block body %}<div class="card">
+    <div class="card-body">
+      <!-- <a  data-bs-toggle="modal" data-bs-target="#exampleModal3" class="btn btn-outline-primary float-end">Delete</a> -->
+      <h5 class="card-title fw-semibold mb-4">Stock</h5>
+      <p class="mb-3">Product in Stock </p>
+
+      <div class="card w-100">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold mb-4">Stock Model</h5>
+          <div class="row">
+            <div class="col-md-6 col">
+                <img src="{{object.prod.thumb.url}}" class="col-11 rounded" alt="">
+            </div>
+            <div class="col-md-6 col-12">
+                <form action="/dash/stock/{{object.pk}}/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {{ add_stock_form | crispy }}
+                    <!-- <div id="div_id_quantity" class="form-group"> 
+                        <label for="id_quantity" class=" requiredField">
+                            Quantity<span class="asteriskField">*</span> 
+                        </label> 
+                        <div> 
+                            <input type="number" name="quantity" value="199" class="numberinput form-control" required="" id="id_quantity"> 
+                        </div> 
+                    </div> -->
+
+                    <div class="my-3 text-end">
+                        <button type="submit" class="btn btn-primary" >Save changes</button>
+                    </div>
+                </form>
+                <h5>Product Information</h5>
+                <div>In Stock: <span class="float-end fw-normal"  >{{object.quantity}}</span></div>
+                <div>name: <span class="float-end fw-normal"  >{{object.prod.name}}</span></div>
+                <div>price: <span class="float-end fw-normal"  >${{object.prod.price}}</span></div>
+                <div>desciption: <span class="float-end fw-normal"  >{{object.prod.description}}</span></div>
+                <div>category: <span class="float-end fw-normal"  >{{object.prod.category}}</span></div>
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+{% endblock %}

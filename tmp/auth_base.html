@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+	<!-- <link rel="shortcut icon" href="img/icons/icon-48x48.png" /> -->
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <title>{% block title %}
+        {% endblock %}</title>
+
+		<link rel="shortcut icon" type="image/png" href="{% static 'admin/images/logos/favicon.png' %}" />
+		<link rel="stylesheet" href="{% static 'admin/css/styles.min.css' %}" />
+</head>
+<body>
+	<style>
+		#alrt{
+			width:360px;
+			margin: 10px auto;
+			padding:15px;
+			border-radius:10px;
+			display:flex; justify-content:space-between;
+			position:relative; top:10px; right: 0px;
+			z-index: 10;
+		}
+	</style>
+	{% for message in messages %}
+	<div id="alrt" class="alert bg-warning alert-dismissible fade show" role="alert" >
+		{{ message | safe }} 
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>    
+	{% endfor %}
+	
+    {% block body %}
+    {% endblock %}
+    <script src="{% static 'admin/js/app.js' %}"></script>
+	<script src="{% static 'admin/libs/jquery/dist/jquery.min.js' %}"></script>
+	<script src="{% static 'admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'admin/js/sidebarmenu.js' %}"></script>
+	<script src="{% static 'admin/js/app.min.js' %}"></script>
+	<script src="{% static 'admin/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+	<script src="{% static 'admin/libs/simplebar/dist/simplebar.js' %}"></script>
+	<script src="{% static 'admin/js/dashboard.js' %}"></script>
+     
+</body>
+</html>

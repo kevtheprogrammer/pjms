@@ -1,0 +1,113 @@
+{% extends 'mngmnt/starter.html' %}
+
+{% block title %}
+Customers{% endblock %}
+
+{% block body %}<div class="card">
+    <div class="card-body">
+      <h5 class="card-title fw-semibold mb-4">Customers</h5>
+      <p class="mb-3">All registered Users</p>
+
+      <div class="card w-100">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold mb-4">Customer User Accounts</h5>
+          <div class="table-responsive">
+            <table class="table text-nowrap mb-0 align-middle">
+              <thead class="text-dark fs-4">
+                <tr>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Id</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Credentials</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Country</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Active</h6>
+                  </th>
+                  <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Action</h6>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for obj in object_list %}
+                <tr>
+                    <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{obj.id}}</h6></td>
+                    <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-1">{{obj.email}}</h6>
+                        <span class="fw-normal">{{obj.get_full_name}}</span>                          
+                    </td>
+                    <td class="border-bottom-0">
+                        <p class="mb-0 fw-normal">{{obj.country.name}}</p>
+                    </td>
+                    <td class="border-bottom-0">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge {% if obj.is_active %}bg-primary{% else %} bg-danger {% endif %} rounded-3 fw-semibold">{{obj.is_active}}</span>
+                    </div>
+                </td>
+                <td class="border-bottom-0">
+                    <a style="text-decoration: none;" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <h6 class="fw-semibold mb-0 fs-4">view</h6>
+                    </a>
+                </td>
+            </tr> 
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registered User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body px-5">
+                    {% if obj.avatar %}
+                    <div class="text-center">
+                      <img src="{{obj.avatar.url}}" style="width: 70px;height:70px;border-radius: 50%;">
+                    </div>
+                    {% endif %}
+                      <p>
+                        Full Names: 
+                        <span class="fw-semibold float-end"> {{obj.get_full_name}}</span>                          
+                      </p>
+                      <p>
+                        Email: 
+                        <span class="fw-normal semibold float-end">{{obj.email}}</span>                          
+                      </p>
+                      <p>
+                        Coutry: 
+                        <span class="fw-normal semibold float-end">{{obj.country.name}}</span>                          
+                      </p>
+                      <p>
+                        phone: 
+                        <span class="fw-normal semibold float-end">{{obj.phone}}</span>                          
+                      </p>                      
+                      <p>
+                        location: 
+                        <span class="fw-normal semibold float-end">{{obj.location}}</span>                          
+                      </p>                      
+                      <p>
+                       Date Joined: 
+                        <span class="fw-normal semibold float-end">{{obj.date_joined}}</span>                          
+                      </p>                       
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+        </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+{% endblock %}

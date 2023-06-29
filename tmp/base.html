@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- jquery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+
+    {% with url_name=request.resolver_match.url_name %}
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="{% static 'logo.jpg' %}" alt=""></a>
+        </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="{% url 'product:favourite' %}"><i class="fa fa-heart"></i> 
+                    {% if user.is_authenticated %}
+                        <span>{{user.favourite.all.count}}</span>
+                    {% endif %}
+
+                </a></li>
+                <li><a href="{% url 'product:cart' %}"><i class="fa fa-shopping-bag"></i> 
+                    
+                    {% if user.is_authenticated %}
+                        <span>{{user.buyer.all.count}}</span></a>
+                    {% endif %}
+                </a></li>
+            </ul>
+            {% if user.is_authenticated %}
+            <div class="header__cart__price"><span>{{user}}</span></div>
+            {% endif %}
+        </div>
+        <div class="humberger__menu__widget">
+            {% if user.is_authenticated %}
+            <div class="header__top__right__auth">
+                <a href="{% url 'logout' %}"><i class="fa fa-user"></i> logout</a>
+           </div>
+            {% else %}
+            <div class="header__top__right__auth">
+                 <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
+            </div>
+            {% endif %}
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="{% if url_name == 'home' %}active{% endif %}"><a href="{% url 'home' %}">Home</a></li>
+                <li class="{% if url_name == 'shop' %}active{% endif %}"><a href="{% url 'shop' %}">Shop</a></li>
+                <li class="{% if url_name == 'about' %}active{% endif %}"><a href="{% url 'about' %}">About Us</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="https://www.facebook.com/profile.php?id=100075666622095&mibextid=LQQJ4d"><i class="fa fa-facebook"></i></a>
+            <a href="https://instagram.com/pjms3business?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> Pjms3business@gmail.com</li>
+                <li>$8 shipping fee outside Cedar City</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> Pjms3business@gmail.com</li>
+                                <li>$8 shipping fee outside Cedar City</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="https://www.facebook.com/profile.php?id=100075666622095&mibextid=LQQJ4d"><i class="fa fa-facebook"></i></a>
+                                <a href="https://instagram.com/pjms3business?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>
+                    
+                            </div>
+                     
+                            {% if user.is_authenticated %}
+                            <div class="header__top__right__auth">
+                                <a href="{% url 'logout' %}"><i class="fa fa-user"></i> logout</a>
+                           </div>
+                            {% else %}
+                            <div class="header__top__right__auth">
+                                 <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a ><img class="col-6" src="{% static 'logo.jpg' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="{% if url_name == 'home' %}active{% endif %}"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="{% if url_name == 'shop' %}active{% endif %}"><a href="{% url 'shop' %}">Shop</a></li>
+                            <li class="{% if url_name == 'about' %}active{% endif %}"><a href="{% url 'about' %}">About Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="{% url 'product:favourite' %}"><i class="fa fa-heart"></i> 
+                                {% if user.is_authenticated %}
+                                <span>{{user.favourite.all.count}}</span>
+                                {% endif %}
+                            </a></li>
+                            <li><a href="{% url 'product:cart' %}"><i class="fa fa-shopping-bag"></i> 
+                                {% if user.is_authenticated %}
+                                    <span>{{user.buyer.all.count}}</span></a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                        {% if user.is_authenticated %}
+                        <div class="header__cart__price"><span>{{user}}</span></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Apartment 21, 1021 S & 350 W, Cedar City</li>
+                            <li>Phone: +1 (435) 531-3471</li>
+                            <li>Email: Pjms3business@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="#staticBackdrop" data-toggle="modal" data-target="#staticBackdrop">Privacy Policy</a></li>
+ 
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Privacy Policy for PJMS</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        At PJMS, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and protect your personal data when you visit our website and make purchases from us.
+                                        
+                                        <h6>What personal information do we collect?</h6>
+                                        When you visit our website or make a purchase, we may collect the following personal information:
+                                        <ol>
+                                            <li>Name, address, email address, and phone number</li> 
+                                            <li>Payment information, including credit card details</li> 
+                                            <li>Shipping and billing address</li>
+                                            <li>Purchase history and preferences</li>
+                                            <li>IP address and device information</li>
+                                        </ol>
+                                        
+                                        <h6></h6>How do we use your personal information?</h6>
+                                        
+                                        We use your personal information to:
+                                        
+                                        Process and fulfill your orders
+                                        Communicate with you about your orders, including shipping and delivery updates
+                                        Improve our website and services
+                                        Send promotional offers and marketing communications (if you have opted-in)
+                                        Comply with legal requirements
+                                        We will only use your personal information for the purposes for which it was collected, and we will not share it with third parties except as necessary to provide our services to you or as required by law.
+                                        
+                                        <h6>How do we protect your personal information?</h6>
+                                        
+                                        We take the security of your personal information seriously and have implemented appropriate technical and organizational measures to protect it against unauthorized access, disclosure, or destruction. These measures include firewalls, encryption, and access controls.
+                                        
+                                        However, no security measures are 100% effective, and we cannot guarantee the security of your personal information. You are responsible for keeping your login credentials and other sensitive information confidential and secure.
+                                        
+                                        <h6>Do we use cookies?</h6>
+                                        
+                                        Yes, we use cookies to enhance your browsing experience and provide personalized content and offers. Cookies are small text files that are stored on your device when you visit our website. You can control cookies through your browser settings or opt-out of certain types of cookies through our cookie consent banner.
+                                        
+                                        Links to other websites
+                                        
+                                        Our website may contain links to third-party websites that are not under our control. We are not responsible for the privacy practices or content of these websites and encourage you to read their privacy policies before providing any personal information.
+                                        
+                                        Changes to our Privacy Policy
+                                        
+                                        We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will post the updated Privacy Policy on our website and indicate the date of the last update. Your continued use of our website after any changes indicates your acceptance of the revised Privacy Policy.
+                                        
+                                        <h6>Contact Us</h6>
+                                        
+                                        If you have any questions or concerns about our Privacy Policy, please contact us at Pjms3business@gmail.com.
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Understood</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="https://www.facebook.com/profile.php?id=100075666622095&mibextid=LQQJ4d"><i class="fa fa-facebook"></i></a>
+                            <a href="https://instagram.com/pjms3business?igshid=YmMyMTA2M2Y="><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Website Developed and Mantained By <a href="https://www.instagram.com/kev_the_programmer/" target="_blank">Kev The Programmer</a></p>
+
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
+                            All rights reserved | This template is made with 
+                            <i class="fa fa-heart" aria-hidden="true"></i> by 
+                            <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="{% static 'img/payment-item.png' %}" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+
+</body>
+
+</html>

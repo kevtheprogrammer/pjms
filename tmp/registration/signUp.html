@@ -1,0 +1,104 @@
+{% extends 'auth_base.html' %}
+
+	{% block title %}
+	CJFS | Sign  up
+	{% endblock %}
+
+{% block body %}   
+
+<main class="d-flex w-100">
+    <div class="container d-flex flex-column">
+        <div class="row vh-100">
+            <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                <div class="d-table-cell align-middle">
+
+
+
+                    <div class="text-center mt-4">
+                        <h1 class="h2">Get started</h1>
+                        <p class="lead">
+                            Start creating the best possible user experience for you customers.
+                        </p>
+                    </div>
+        {% if form.errors %}
+                
+            <div class="col-md-10 mx-auto text-danger px-3 p-3 m-1 rounded" style="background-color:pink; ">
+                <div><i class="fas fa-exclamation-triangle"></i>  {{form.errors}}</div>
+            
+            </div>
+            {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                    <div class="col-md-10 mx-auto text-danger p-3 rounded py-2" style="background-color:pink; ">
+                        <div><i class="fas fa-exclamation-triangle"></i> Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-10 mx-auto text-danger p-3 rounded" style="background-color:pink; ">
+                        <div><i class="fas fa-exclamation-triangle"></i> Please login to see this page.</div>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="m-sm-4">
+                                <form action="{{form.get_absolute_url}}" method="post">
+                                    {% csrf_token %}
+                                    <label class="visually"  for="id_username">Email address:</label>
+                                    <div class="input-group">
+                                        <input class="form-control"  type="email" name="email" maxlength="254" autofocus="" required="" id="id_email">
+                                    </div>
+                                    <div class="my-3">
+                                        <label  for="id_first_name" class="form-label">first_name</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+                                        </div>
+                                    </div> 
+                                    <div class="my-3">
+                                        <label  for="id_last_name" class="form-label">last_name</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="last_name" maxlength="30" id="id_last_name">
+                                        </div>
+                                    </div> 
+                                    <div class="my-3">
+                                        <label  for="id_password1" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+                                        </div>
+                                    </div> 
+                                    <div class="my-3">
+                                        <label  for="id_password2" class="form-label">Confirm Password</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-lg btn-primary">Sign up</button>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <div>
+                                            Aleady have an account <a href="{% url 'login' %}" class="">Sign In</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+ 
+
+
+{% endblock %}

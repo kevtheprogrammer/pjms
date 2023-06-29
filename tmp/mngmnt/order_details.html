@@ -1,0 +1,67 @@
+
+
+
+{% extends 'mngmnt/starter.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Order Details{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-md-4 col-12">
+        <div class="h3">{{object}}</div>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'account:orders' %}">Orders</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{object}}</li>
+            </ol>
+        </nav>
+        {% for i in object.orderitems.all %}
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{i.item.thumb.url}}" class="col-12 rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i.item.name}}</h5>
+                      <p class="card-text">${{i.item.price}} x {{i.quantity}} units</p>
+                      <div class="card-text"><small class="text-muted">{{i.item.updated}}</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-4 col-12 px-3 0 my-3  my-md-5 py-md-5">
+        <h5>Order Information</h5>
+        <div>shipping email: <span class="float-end fw-semibold"  >{{object.email}}</span></div>
+        <div>sub total: <span class="float-end fw-semibold"  >${{object.get_subtotal}}</span></div>
+        <div>status: <span class="float-end fw-semibold"  >{{object.status}}</span></div>
+        <div>address: <span class="float-end fw-semibold"  >{{object.address}}</span></div>
+        <div>city: <span class="float-end fw-semibold"  >{{object.city}}</span></div>
+        <div>state: <span class="float-end fw-semibold"  >{{object.state}}</span></div>
+        <div>zip code: <span class="float-end fw-semibold"  >{{object.zip_code}}</span></div>
+        
+        <form action="/dash/orders/{{object.pk}}/" method="post" >
+            {% csrf_token %}
+            <div class="my-3">
+                {{ order_forms | crispy }}
+            </div>
+            <div class="my-3 text-end">
+
+              <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+              <button type="submit" class="btn btn-primary" >Update</button>
+              
+            </div>
+          </form>
+        <!-- <a class="btn btn-primary my-3 col=12" data-bs-toggle="modal" data-bs-target="#exampleModal2">Edit Product</a> -->
+        <!-- <a class="btn btn-danger mx-2 my-3 col=12" href="">Delete Product</a> -->
+    </div>
+    
+</div>
+
+{% endblock %}

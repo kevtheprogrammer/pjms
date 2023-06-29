@@ -1,0 +1,88 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Cart | PJMS
+{% endblock %}
+
+{% block content %}
+ 
+{% include 'hero_normal.html' %}
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="{% static 'img/breadcrumb.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Checkout</h2>
+                        <div class="breadcrumb__option">
+                            <a href="{% url 'home' %}">Home</a>
+                            <span>Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                    </h6>
+                </div>
+            </div>
+            <div class="checkout__form">
+                <h4>Billing Details</h4>
+                <form action="/product/checkout/" method="post">      
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Your Order</h4>
+                                <div class="checkout__order__products">Products <span>Total</span></div>
+                                <ul>
+                                    {% for x in cart %}
+                                    <li>{{x}} <span>${{x.get_cart_total}}</span></li>
+                                    {% endfor  %}
+                                </ul>
+                                <div class="checkout__order__subtotal">Subtotal <span>${{subtotal}}</span></div>
+                                <ul>    
+                                <li>Note: $8 shipping fee outside Cedar City</li>
+                                </ul>
+                                <!-- <div class="checkout__order__t otal">Total <span>$750.99</span></div> -->
+                                <!-- <div class="checkout__input__checkbox">
+                                    <label for="acc-or">
+                                        Payment
+                                    </label>
+                                </div> -->
+                                <p>Please select a payment method.</p>
+                                <!-- <div class="checkout__input__checkbox">
+                                    <label for="payment">
+                                        Credit Card/Debit Card
+                                        <input type="radio" id="payment">
+                                        <span class="radio"></span>
+                                    </label>
+                                </div> -->
+                                
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+  
+
+{% endblock %}
